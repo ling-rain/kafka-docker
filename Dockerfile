@@ -2,16 +2,21 @@ FROM java:8-jre
 
 MAINTAINER PalSzak
 
-RUN  wget -q -O - http://www.eu.apache.org/dist/kafka/0.8.2.1/kafka_2.10-0.8.2.1.tgz | tar -xzf - -C /opt
+ENV SCALA_VERSION 2.11
+ENV KAFKA_VERSION 0.9.0.1
 
-ENV PATH /opt/kafka_2.10-0.8.2.1/bin:$PATH
+RUN  wget -q -O - http://www.eu.apache.org/dist/kafka/$KAFKA_VERSION/kafka_$SCALA_VERSION-$KAFKA_VERSION.tgz | tar -xzf - -C /opt
+
+RUN mv /opt/kafka_$SCALA_VERSION-$KAFKA_VERSION /opt/kafka
+
+ENV PATH /opt/kafka/bin:$PATH
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
-COPY ./image/conf /opt/kafka_2.10-0.8.2.1/config
-VOLUME ["/opt/kafka_2.10-0.8.2.1/config"]
+COPY ./image/conf /opt/kafka/config
+VOLUME ["/opt/kafka/config"]
 
 EXPOSE 9092
 
-CMD  ["kafka-server-start.sh", "/opt/kafka_2.10-0.8.2.1/config/server.properties"]
+CMD  ["kafka-server-start.sh", "/opt/kafka/config/server.properties"]
