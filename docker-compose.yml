@@ -13,4 +13,4 @@ kafka:
   links:
     - zookeeper:zookeeper
   volumes:
-    - ./image/conf:/opt/kafka_2.10-0.8.2.1/config
+    - ./image/conf:/opt/kafka/config
