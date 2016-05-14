@@ -5,9 +5,8 @@ MAINTAINER PalSzak
 ENV SCALA_VERSION 2.11
 ENV KAFKA_VERSION 0.9.0.1
 
-RUN  wget -q -O - http://www.eu.apache.org/dist/kafka/$KAFKA_VERSION/kafka_$SCALA_VERSION-$KAFKA_VERSION.tgz | tar -xzf - -C /opt
-
-RUN mv /opt/kafka_$SCALA_VERSION-$KAFKA_VERSION /opt/kafka
+RUN  wget -q -O - http://www.eu.apache.org/dist/kafka/$KAFKA_VERSION/kafka_$SCALA_VERSION-$KAFKA_VERSION.tgz | tar -xzf - -C /opt \
+       && mv /opt/kafka_$SCALA_VERSION-$KAFKA_VERSION /opt/kafka
 
 ENV PATH /opt/kafka/bin:$PATH
 
