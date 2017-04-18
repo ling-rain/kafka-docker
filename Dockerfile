@@ -14,7 +14,7 @@ ENV PATH /opt/kafka/bin:$PATH
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
-COPY ./image/conf /opt/kafka/config && sed -i "s/zookeeper:2181/$ZOOKEEPER_SERVER:2181/g" /opt/kafka/config/server.properties
+COPY ./image/conf /opt/kafka/config
 VOLUME ["/opt/kafka/config"]
 
 EXPOSE 9092
